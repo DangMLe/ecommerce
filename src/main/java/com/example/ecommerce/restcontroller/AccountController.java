@@ -36,7 +36,7 @@ class AccountController {
 
 
   @GetMapping("/accounts")
-  @PreAuthorize("hasRole('ADMIN)")
+  @PreAuthorize("hasRole('ADMIN')")
   List<AccountDTO> all() {
     List<Account> accounts = accountService.retrieveAccounts();
     return accounts.stream().map(this::convertToDTO).collect(Collectors.toList());

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.example.ecommerce.DTO.ProductDTO;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.repository.CategoryRepository;
+import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.ProductService;
 
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -64,6 +68,12 @@ public class ProductController {
     @GetMapping("/product/{id}")
     ProductDTO getProduct(@PathVariable Long id){
         return convertToDTO(productService.getProductById(id));
+    }
+
+    @GetMapping("/product/category/{id}")
+    List<ProductDTO> getProductByCategory(@PathVariable Long id){
+        List<Product> products = productService.getProductByCategory(categoryService.getCategory(id));
+        return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @PostMapping("/products")

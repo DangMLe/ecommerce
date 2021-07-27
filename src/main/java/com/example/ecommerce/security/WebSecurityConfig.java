@@ -5,6 +5,7 @@ import com.example.ecommerce.security.jwt.JwtAuthTokenFilter;
 import com.example.ecommerce.security.jwt.JwtUtils;
 import com.example.ecommerce.security.services.UserDetailsServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -27,12 +29,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     //jsr250Enabled = true,
     prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+
     private final UserDetailsServiceImpl userDetailsService;
 
     final private JwtAuthEntryPoint unauthorizedHandler;
 
     private final JwtUtils jwtUtils;
 
+    
     public WebSecurityConfig (UserDetailsServiceImpl userDetailsService, JwtAuthEntryPoint unauthorizedHandler, JwtUtils jwtUtils) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
@@ -74,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers(HttpMethod.GET, "/api/categories").permitAll()
             .anyRequest().authenticated();
 
-        // http.logout().logoutUrl("api/auth/logout").invalidateHttpSession(true);
+        http.logout().logoutUrl("api/auth/logout").invalidateHttpSession(true);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import io.jsonwebtoken.*;
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-    // private static List<String> jwtBlackList = new ArrayList<String>();
+    private static List<String> jwtBlackList = new ArrayList<String>();
 
 
     @Value("${example.ecommerce.jwtSecret}")
@@ -59,18 +60,18 @@ public class JwtUtils {
 
         return false;
     }
-    // public boolean addToBlackList(String jwtToken) throws Exception {
-    //     if (isInBlacklist(jwtSecret)){
-    //         return false;
-    //     }
-    //     jwtBlackList.add(jwtToken);
-    //     return true;
-    // }
+    public boolean addToBlackList(String jwtToken) throws Exception {
+        if (isInBlacklist(jwtSecret)){
+            return false;
+        }
+        jwtBlackList.add(jwtToken);
+        return true;
+    }
 
-    // public boolean isInBlacklist(String jwtSecret) throws Exception {
-    //     if (jwtBlackList.contains(jwtSecret)){
-    //         throw new Exception("JWT Token is in blacklist");
-    //     }
-    //     return false;
-    // }
+    public boolean isInBlacklist(String jwtSecret) throws Exception {
+        if (jwtBlackList.contains(jwtSecret)){
+            throw new Exception("JWT Token is in blacklist");
+        }
+        return false;
+    }
 }
