@@ -44,13 +44,13 @@ public class CategoryController {
         return category;
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     List<CategoryDTO> getCategories(){
         List<Category> categories = categoryService.getCategories();
         return categories.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @PostMapping("/categories")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody

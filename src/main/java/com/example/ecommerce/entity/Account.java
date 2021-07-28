@@ -1,8 +1,5 @@
 package com.example.ecommerce.entity;
 
-
-import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,13 +44,13 @@ public class Account {
     private String phonenum;
 
     @Column(name = "account_avatar")
-    private Blob avatar;
+    private byte[] avatar;
 
 	public Account() {
 	}
 
 	public Account(String name, String password, String firstname, String lastname, String role, int age, String email,
-			String address, String phonenum, Blob avatar) {
+			String address, String phonenum, byte[] avatar) {
 		this.username = username;
 		this.password = password;
 		this.firstname = firstname;
@@ -168,15 +165,13 @@ public class Account {
 	}
 
 
-	public Blob getAvatar() {
+	public byte[] getAvatar() {
 		return avatar;
 	}
 
-
-	public void setAvatar(Blob avatar) {
+	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
 	}
-
 
 	@Override
 	public int hashCode() {

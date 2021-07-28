@@ -1,9 +1,7 @@
 package com.example.ecommerce.DTO;
 
-import java.sql.Blob;
-
 public class AccountDTO{
-    private String name;
+    private String username;
     private String password;
     private String firstname;
     private String lastname;
@@ -12,12 +10,12 @@ public class AccountDTO{
     private String email;
     private String address;
     private String phonenum;
-    private Blob avatar;
+    private byte[] avatar;
     public String getName() {
-        return name;
+        return username;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
     }
     public String getPassword() {
         return password;
@@ -67,10 +65,10 @@ public class AccountDTO{
     public void setPhonenum(String phonenum) {
         this.phonenum = phonenum;
     }
-    public Blob getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
-    public void setAvatar(Blob avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
     

@@ -1,6 +1,5 @@
 package com.example.ecommerce.DTO;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 
 public class ProductDTO {
@@ -16,7 +15,7 @@ public class ProductDTO {
 
     private LocalDate updateDate;
 
-    private Blob image;
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -66,11 +65,11 @@ public class ProductDTO {
         this.updateDate = updateDate;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
     

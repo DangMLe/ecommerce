@@ -1,6 +1,5 @@
 package com.example.ecommerce.payload.request;
 
-import java.sql.Blob;
 import java.util.Set;
 
 import javax.validation.constraints.*;
@@ -34,7 +33,7 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
-    private Blob avatar;
+    private byte[] avatar;
     
     public String getUsername() {
         return username;
@@ -108,11 +107,11 @@ public class SignupRequest {
         this.phonenum = phonenum;
     }
 
-    public Blob getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Blob avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
     

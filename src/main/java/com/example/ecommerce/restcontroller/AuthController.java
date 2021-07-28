@@ -3,6 +3,7 @@ package com.example.ecommerce.restcontroller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import com.example.ecommerce.security.jwt.JwtAuthTokenFilter;
 import com.example.ecommerce.security.jwt.JwtUtils;
 import com.example.ecommerce.security.services.UserDetailsImpl;
 
+import org.springframework.util.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -97,14 +99,22 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-//     @PostMapping("/logout")
-//     public ResponseEntity<?> logoutUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//         String jwt = JwtAuthTokenFilter.parseJwt(request);
-//         if (jwt != null && jwtUtils.addToBlackList(jwt)){
-//             return ResponseEntity.ok(new MessageResponse("User logged out successfully!"));
-//         }
-//         return ResponseEntity
-//                 .badRequest()
-//                 .body(new MessageResponse("Error: Cannot add jwt token to blacklist!"));
-//     }
+    @PostMapping("/logout")
+    public Boolean logout(HttpServletRequest request, HttpServletResponse response){
+		try{
+			String headerAuth = request.getHeader("Authorization"), jwt="";
+
+	        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+	            jwt = headerAuth.substring(7, headerAuth.length());
+	        }
+
+	        jwtUtils.addToBlackList(jwt);
+		}
+		catch(Exception ex){
+			System.out.println("Logout error!");
+			return false;
+		}
+		
+        return true;
+	}
 }

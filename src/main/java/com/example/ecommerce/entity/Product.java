@@ -1,6 +1,5 @@
 package com.example.ecommerce.entity;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -38,11 +37,11 @@ public class Product {
     private LocalDate updateDate;
 
     @Column(name = "product_image")
-    private Blob image;
+    private byte[] image;
     public Product() {
     }
     
-    public Product(Category category, String name, Long price, String decs, LocalDate updateDate, Blob image) {
+    public Product(Category category, String name, Long price, String decs, LocalDate updateDate, byte[] image) {
         this.category = category;
         this.name = name;
         this.price = price;
@@ -90,10 +89,10 @@ public class Product {
     public void setUpdateDate(LocalDate localDate) {
         this.updateDate = localDate;
     }
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
