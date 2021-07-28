@@ -5,14 +5,12 @@ import java.util.stream.Collectors;
 
 import com.example.ecommerce.DTO.OrderDTO;
 import com.example.ecommerce.DTO.OrderDetailDTO;
-import com.example.ecommerce.entity.Account;
 import com.example.ecommerce.entity.Order;
 import com.example.ecommerce.entity.OrderDetail;
 import com.example.ecommerce.service.AccountService;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.ProductService;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +36,7 @@ public class OrderController {
     private ProductService productService;
     @Autowired
     private AccountService accountService;
+
     
     private OrderDetailDTO convertToDTO(OrderDetail orderDetail){
         OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
@@ -52,15 +51,15 @@ public class OrderController {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setAccountName(order.getBuyer().getName());
         orderDTO.setDate(order.getDate());
-        orderDTO.setOrderDetails(getOrderDetail(order));
+        orderDTO.setOrderDetails(getOrderDetail(order.getId()));
         return orderDTO;
         
     }
 
-    @GetMapping("/order/{order}")
+    @GetMapping("/order/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    List<OrderDetailDTO> getOrderDetail(Order order){
-        List<OrderDetail> orderDetails = orderService.getOrderDetail(order);
+    List<OrderDetailDTO> getOrderDetail(@PathVariable Long id){
+        List<OrderDetail> orderDetails = orderService.getOrderDetail(orderService.getOrder(id));
         return orderDetails.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
@@ -86,20 +85,20 @@ public class OrderController {
         return orderDetailDTOs.stream().map(this::convertToEntity).collect(Collectors.toList());
     }
 
-    @GetMapping("/orders")
+    @GetMapping
     @PreAuthorize("hasRole('Admin')")
     List<OrderDTO> getAllOrder(){
         List<Order> orders = orderService.getAllOrder(); 
         return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @GetMapping("/orders/{Account}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    List<OrderDTO> getAllOrderByAccount(Account account){
-        List<Order> orders = orderService.getAllOrderByAccount(account);
+    List<OrderDTO> getAllOrderByAccount(@PathVariable Long id){
+        List<Order> orders = orderService.getAllOrderByAccount(accountService.getAccount(id));
         return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
-    @PostMapping("/orders")
+    @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -107,15 +106,15 @@ public class OrderController {
         return convertToDTO(orderService.addOrder(convertToEntity(orderDTO)));
     }
     
-    @PostMapping("/order/{order}")
+    @PostMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    OrderDetailDTO addOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO, OrderDTO orderDTO){
-        return convertToDTO(orderService.addOrderDetail(convertToEntity(orderDetailDTO),orderDTO.getId()));
+    OrderDetailDTO addOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable Long id){
+        return convertToDTO(orderService.addOrderDetail(convertToEntity(orderDetailDTO),id));
     }
 
-    @PutMapping("/order/{id}")
+    @PutMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     void updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable Long id){
         Order order = convertToEntity(orderDTO);
