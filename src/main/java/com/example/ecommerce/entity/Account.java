@@ -49,7 +49,7 @@ public class Account {
 	public Account() {
 	}
 
-	public Account(String name, String password, String firstname, String lastname, String role, int age, String email,
+	public Account(String username, String password, String firstname, String lastname, String role, int age, String email,
 			String address, String phonenum, byte[] avatar) {
 		this.username = username;
 		this.password = password;
