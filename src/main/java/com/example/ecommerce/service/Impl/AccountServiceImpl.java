@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService{
             account.setEmail(newAccount.getEmail());
             account.setPhonenum(newAccount.getPhonenum());
             account.setAvatar(newAccount.getAvatar());
-            return account;
+            return accountRepository.save(account);
         })
         .orElseThrow(()-> new AccountException(accountId));
     }

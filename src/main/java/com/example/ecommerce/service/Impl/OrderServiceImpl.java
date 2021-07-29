@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).map(newOrder->{
             newOrder.setBuyer(order.getBuyer());
             newOrder.setDate(order.getDate());
-            return newOrder;
+            return orderRepository.save(newOrder);
         }).orElseThrow(()-> new OrderException(id));
     }
 
@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElseThrow(()-> new OrderException(id));
         OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
         order.getOrderDetails().add(orderDetail);
-        return newOrderDetail;
+        return orderDetailRepository.save(newOrderDetail);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
             newOrderDetail.setProduct(orderDetail.getProduct());
             newOrderDetail.setPrice(orderDetail.getPrice());
             newOrderDetail.setQuantity(orderDetail.getQuantity());
-            return newOrderDetail;
+            return orderDetailRepository.save(newOrderDetail);
         }).orElseThrow(()-> new OrderException(id));
         
     }
