@@ -3,7 +3,6 @@ package com.example.ecommerce.security.services;
 import com.example.ecommerce.entity.Account;
 import com.example.ecommerce.repository.AccountRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

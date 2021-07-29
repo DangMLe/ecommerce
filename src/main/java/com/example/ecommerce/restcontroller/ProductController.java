@@ -9,7 +9,6 @@ import com.example.ecommerce.repository.CategoryRepository;
 import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.ProductService;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -59,7 +58,7 @@ public class ProductController {
         return product;
     }
 
-    @GetMapping("/products")
+    @GetMapping
     List<ProductDTO> getAll(){
         List<Product> products = productService.getAllProduct();
         return products.stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -76,7 +75,7 @@ public class ProductController {
         return products.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @PostMapping("/products")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody

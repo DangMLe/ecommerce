@@ -1,12 +1,10 @@
 package com.example.ecommerce.service.Impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.exception.ProductException;
-import com.example.ecommerce.repository.CategoryRepository;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.service.ProductService;
 

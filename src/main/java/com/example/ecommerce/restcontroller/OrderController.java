@@ -114,7 +114,7 @@ public class OrderController {
         return convertToDTO(orderService.addOrderDetail(convertToEntity(orderDetailDTO),id));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     void updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable Long id){
         Order order = convertToEntity(orderDTO);
