@@ -90,7 +90,7 @@ public class OrderController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('ADMIN')")
     List<OrderDTO> getAllOrder(){
         List<Order> orders = orderService.getAllOrder(); 
         return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
