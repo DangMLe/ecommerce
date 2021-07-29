@@ -2,13 +2,22 @@ package com.example.ecommerce.DTO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class OrderDTO {
     private Long id;
     private String accountName;
     private List<OrderDetailDTO> orderDetails = new ArrayList<>();
-    private LocalDate date;
+
+    @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date date;
     public Long getId() {
         return id;
     }
@@ -27,10 +36,10 @@ public class OrderDTO {
     public void setOrderDetails(List<OrderDetailDTO> orderDetails) {
         this.orderDetails = orderDetails;
     }
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
     

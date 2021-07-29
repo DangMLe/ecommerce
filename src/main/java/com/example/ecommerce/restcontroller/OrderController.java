@@ -1,5 +1,7 @@
 package com.example.ecommerce.restcontroller;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +52,7 @@ public class OrderController {
     private OrderDTO convertToDTO(Order order){
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setAccountName(order.getBuyer().getName());
-        orderDTO.setDate(order.getDate());
+        // orderDTO.setDate(order.getDate());
         orderDTO.setOrderDetails(getOrderDetail(order.getId()));
         return orderDTO;
         
@@ -103,6 +105,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     OrderDTO addOrder(@RequestBody OrderDTO orderDTO){
+        orderDTO.setDate(new Date());;
         return convertToDTO(orderService.addOrder(convertToEntity(orderDTO)));
     }
     
@@ -117,6 +120,7 @@ public class OrderController {
     @PutMapping("order/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     void updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable Long id){
+        orderDTO.setDate(new Date());
         Order order = convertToEntity(orderDTO);
         orderService.updateOrder(order, id);
     }

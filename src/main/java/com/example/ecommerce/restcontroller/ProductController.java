@@ -1,5 +1,7 @@
 package com.example.ecommerce.restcontroller;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,12 +82,14 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     ProductDTO newProduct(@RequestBody ProductDTO productDTO){
+        productDTO.setUpdateDate(new Date());
         return convertToDTO(productService.addProduct(convertToEntity(productDTO)));
     }
 
     @PutMapping("/product/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     void updateProduct(@RequestBody ProductDTO productDTO,@PathVariable Long id){
+        productDTO.setUpdateDate(new Date());
         productService.updateProduct(convertToEntity(productDTO), id);
     }
 

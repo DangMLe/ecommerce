@@ -2,6 +2,7 @@ package com.example.ecommerce.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -34,12 +39,14 @@ public class Order {
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
     @Column(name = "order_date")
-    private LocalDate date;
+    @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date date;
     
     public Order() {
     }
 
-    public Order(Account account, List<OrderDetail> orderDetails, LocalDate date) {
+    public Order(Account account, List<OrderDetail> orderDetails, Date date) {
         this.account = account;
         this.orderDetails = orderDetails;
         this.date = date;
@@ -57,11 +64,11 @@ public class Order {
         this.account = account;
     }
     
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

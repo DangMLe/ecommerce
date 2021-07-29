@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
         // TODO Auto-generated method stub
         return categoryRepository.findById(id).map(category->{
             category.setName(newCategory.getName());
-            return category;
+            return categoryRepository.save(category);
         }).orElseThrow(()-> new CategoryException(id));
         
     }

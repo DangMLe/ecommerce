@@ -1,6 +1,11 @@
 package com.example.ecommerce.DTO;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class ProductDTO {
     private Long id;
@@ -13,7 +18,9 @@ public class ProductDTO {
 
     private String decs;
 
-    private LocalDate updateDate;
+    @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date updateDate;
 
     private byte[] image;
 
@@ -57,11 +64,11 @@ public class ProductDTO {
         this.decs = decs;
     }
 
-    public LocalDate getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(LocalDate updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 

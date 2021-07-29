@@ -1,5 +1,7 @@
 package com.example.ecommerce.service.Impl;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import com.example.ecommerce.entity.Category;
@@ -57,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(newProduct.getPrice());
             product.setDecs(newProduct.getDecs());
             product.setCategory(newProduct.getCategory());
-            product.setUpdateDate(java.time.LocalDate.now());
+            product.setUpdateDate(newProduct.getUpdateDate());
             product.setImage(newProduct.getImage());
             return productRepository.save(product);
         }).orElseThrow(()-> new ProductException(id));

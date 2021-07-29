@@ -1,6 +1,7 @@
 package com.example.ecommerce.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tb_products")
@@ -34,14 +39,16 @@ public class Product {
     private String decs;
 
     @Column(name = "product_updateDate")
-    private LocalDate updateDate;
+    @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date updateDate;
 
     @Column(name = "product_image")
     private byte[] image;
     public Product() {
     }
     
-    public Product(Category category, String name, Long price, String decs, LocalDate updateDate, byte[] image) {
+    public Product(Category category, String name, Long price, String decs,Date updateDate, byte[] image) {
         this.category = category;
         this.name = name;
         this.price = price;
@@ -83,11 +90,11 @@ public class Product {
     public void setDecs(String decs) {
         this.decs = decs;
     }
-    public LocalDate getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
-    public void setUpdateDate(LocalDate localDate) {
-        this.updateDate = localDate;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
     public byte[] getImage() {
         return image;
