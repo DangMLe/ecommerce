@@ -92,7 +92,7 @@ public class OrderController {
         return orders.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/account/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     List<OrderDTO> getAllOrderByAccount(@PathVariable Long id){
         List<Order> orders = orderService.getAllOrderByAccount(accountService.getAccount(id));
@@ -106,7 +106,7 @@ public class OrderController {
         return convertToDTO(orderService.addOrder(convertToEntity(orderDTO)));
     }
     
-    @PostMapping("/{id}")
+    @PostMapping("order/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -114,7 +114,7 @@ public class OrderController {
         return convertToDTO(orderService.addOrderDetail(convertToEntity(orderDetailDTO),id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("order/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     void updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable Long id){
         Order order = convertToEntity(orderDTO);
