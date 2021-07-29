@@ -41,6 +41,7 @@ public class ProductController {
 
     private ProductDTO convertToDTO(Product product){
         ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
         productDTO.setDecs(product.getDecs());

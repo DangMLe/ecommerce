@@ -42,6 +42,7 @@ public class OrderController {
     
     private OrderDetailDTO convertToDTO(OrderDetail orderDetail){
         OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+        orderDetailDTO.setId(orderDetail.getId());
         orderDetailDTO.setOrderid(orderDetail.getOrder().getId());
         orderDetailDTO.setProduct(orderDetail.getProduct().getName());
         orderDetailDTO.setPrice(orderDetail.getPrice());
@@ -51,8 +52,9 @@ public class OrderController {
     
     private OrderDTO convertToDTO(Order order){
         OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setId(order.getId());
         orderDTO.setAccountName(order.getBuyer().getName());
-        // orderDTO.setDate(order.getDate());
+        orderDTO.setDate(order.getDate());
         orderDTO.setOrderDetails(getOrderDetail(order.getId()));
         return orderDTO;
         
